@@ -55,9 +55,7 @@
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-                            <x-student-cancel-btn>
-                                {{ __('Cancel') }}
-                            </x-student-cancel-btn>
+                            <x-student-cancel-btn />
                             <x-primary-button class="ms-4">
                                 {{ __('Save Student') }}
                             </x-primary-button>
