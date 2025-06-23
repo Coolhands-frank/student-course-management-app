@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\CourseController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,10 +26,11 @@ Route::middleware('auth')->group(function () {
 
     // Student CRUD Routes
     Route::resource('students', StudentController::class);
-/** 
+ 
     // Course CRUD Routes
     Route::resource('courses', CourseController::class);
 
+    /** 
     // Enrollment Routes
     Route::get('/enrollments', [EnrollmentController::class, 'index'])->name('enrollments.index');
     Route::get('/enrollments/create', [EnrollmentController::class, 'create'])->name('enrollments.create');
