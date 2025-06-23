@@ -20,10 +20,6 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
-});
-
-// Authenticated routes (/dashboard/xxx)
-Route::middleware('auth')->group(function () {
 
     // Student CRUD Routes
     Route::resource('students', StudentController::class);
@@ -38,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/enrollments', [EnrollmentController::class, 'store'])->name('enrollments.store');
     Route::get('/enrollments/{student}/edit', [EnrollmentController::class, 'edit'])->name('enrollments.edit');
     Route::put('/enrollments/{student}', [EnrollmentController::class, 'update'])->name('enrollments.update');
-
 });
+
 
 require __DIR__.'/auth.php';

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\Course;
 
 class EnrollmentController extends Controller
 {
@@ -25,4 +26,24 @@ class EnrollmentController extends Controller
         $courses = Course::all();
         return view('enrollments.create', compact('students', 'courses'));
     }
+
+    /**
+     * Store a newly created enrollment (assign courses to a student).
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'course_ids' => 'required|array',
+            'course_ids.*' => 'exists:courses,id',
+        ]);
+
+        $student = Student::find($request->student_id);
+
+        $student->courses()->sync($request->course_ids);
+
+        return redirect()->route('enrollments.index')
+                         ->with('success', 'Enrollment updated successfully.');
+    }
+
 }
