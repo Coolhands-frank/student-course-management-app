@@ -41,8 +41,8 @@ Follow these steps to get the project up and running on your local machine.
 ### Installation Steps:
 
 1.  **Clone the repository:**
-    ```
-    inside the Herd directory run 
+    Inside the Herd directory run
+    ``` 
     git clone https://github.com/Coolhands-frank/student-course-management-system.git
     cd student-course-management
     ```
@@ -65,6 +65,7 @@ Follow these steps to get the project up and running on your local machine.
 
 5.  **Configure your database:**
     Use SQLite (easiest with Herd)
+    
     In .env, update:
 
     ```
