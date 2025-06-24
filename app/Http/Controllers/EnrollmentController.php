@@ -46,4 +46,36 @@ class EnrollmentController extends Controller
                          ->with('success', 'Enrollment updated successfully.');
     }
 
+    /**
+     * Show the form for editing an existing enrollment.
+     */
+    public function edit(Student $student)
+    {
+        // Load the courses associated with the student
+        $student->load('courses');
+        $allCourses = Course::all();
+
+        // Get the IDs of courses the student is already enrolled in
+        $enrolledCourseIds = $student->courses->pluck('id')->toArray();
+
+        return view('enrollments.edit', compact('student', 'allCourses', 'enrolledCourseIds'));
+    }
+
+    /**
+     * Update the specified enrollment in storage.
+     */
+    public function update(Request $request, Student $student)
+    {
+        $request->validate([
+            'course_ids' => 'nullable|array', // Can be empty if all courses are unassigned
+            'course_ids.*' => 'exists:courses,id',
+        ]);
+
+        // If course_ids is null (no courses selected), sync an empty array to detach all
+        $student->courses()->sync($request->input('course_ids', []));
+
+        return redirect()->route('enrollments.index')
+                         ->with('success', 'Enrollment updated successfully.');
+    }
+
 }

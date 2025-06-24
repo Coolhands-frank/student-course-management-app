@@ -19,18 +19,18 @@
 
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student Name</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Enrolled Courses</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            <thead class="bg-gray-50 block">
+                                <tr class="table w-full table-fixed">
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">Student Name</th>
+                                    <th class="hidden md:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/2">Enrolled Courses</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody class="bg-white divide-y divide-gray-200 block max-h-[350px] overflow-y-auto">
                                 @foreach ($students as $student)
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $student->name }}</td>
-                                        <td class="px-6 py-4">
+                                    <tr class="table w-full table-fixed">
+                                        <td class="px-6 py-4 whitespace-nowrap w-1/4">{{ $student->name }}</td>
+                                        <td class="hidden md:table-cell px-6 py-4 w-1/2">
                                             @forelse ($student->courses as $course)
                                                 <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10 mb-1 mr-1">
                                                     {{ $course->course_name }} ({{ $course->course_code }})
@@ -39,7 +39,7 @@
                                                 <span class="text-gray-500 text-sm">No courses assigned.</span>
                                             @endforelse
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium w-1/4">
                                             <a href="{{ route('enrollments.edit', $student) }}" class="text-indigo-600 hover:text-indigo-900">Manage Enrollment</a>
                                         </td>
                                     </tr>
