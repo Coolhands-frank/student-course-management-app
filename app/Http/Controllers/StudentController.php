@@ -45,13 +45,15 @@ class StudentController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified student.
      */
-    public function show(string $id)
+    public function show(Student $student)
     {
-        //
+        // Load courses for the student show page if needed
+        $student->load('courses');
+        return view('students.show', compact('student'));
     }
-
+    
     /**
      * Show the form for editing the specified student.
      */
