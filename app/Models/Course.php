@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
+    
+    /** @use HasFactory<\Database\Factories\CourseFactory> */
+    use HasFactory;
+
     protected $fillable = [
         'course_code',
         'course_name',
@@ -14,6 +18,12 @@ class Course extends Model
         'unit',
     ];
 
-    /** @use HasFactory<\Database\Factories\CourseFactory> */
-    use HasFactory;
+    /**
+     * Get the students enrolled in this course.
+     */
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'course_student');
+    }
+
 }

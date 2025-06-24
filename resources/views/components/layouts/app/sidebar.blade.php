@@ -16,7 +16,7 @@
                     <flux:navlist.item class="mb-2" icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                     <flux:navlist.item class="mb-2" icon="home" :href="route('students.index')" :current="request()->routeIs('students.*')" wire:navigate>{{ __('Students') }}</flux:navlist.item>
                     <flux:navlist.item class="mb-2" icon="home" :href="route('courses.index')" :current="request()->routeIs('courses.*')" wire:navigate>{{ __('Courses') }}</flux:navlist.item>
-                    <flux:navlist.item class="mb-2" icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Enrollments') }}</flux:navlist.item>
+                    <flux:navlist.item class="mb-2" icon="home" :href="route('enrollments.index')" :current="request()->routeIs('enrollments.*')" wire:navigate>{{ __('Enrollments') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
