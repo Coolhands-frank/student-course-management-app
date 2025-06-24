@@ -44,11 +44,13 @@ class CourseController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified course.
      */
-    public function show(string $id)
+    public function show(Course $course)
     {
-        //
+        // Load students for the course show page if needed
+        $course->load('students');
+        return view('courses.show', compact('course'));
     }
 
     /**
