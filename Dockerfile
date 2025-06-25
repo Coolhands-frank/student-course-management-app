@@ -37,4 +37,6 @@ COPY scripts/00-laravel-deploy.sh /usr/local/bin/deploy.sh
 RUN chmod +x /usr/local/bin/deploy.sh
 
 # Final CMD — run script and then start PHP-FPM
-CMD ["/bin/bash", "-c", "/usr/local/bin/deploy.sh && php-fpm"]
+EXPOSE 8080
+
+CMD ["/bin/bash", "-c", "/usr/local/bin/deploy.sh && php artisan serve --host=0.0.0.0 --port=8080"]
