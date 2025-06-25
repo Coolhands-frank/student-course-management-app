@@ -36,6 +36,12 @@ RUN npm install && npm run build
 COPY scripts/00-laravel-deploy.sh /usr/local/bin/deploy.sh
 RUN chmod +x /usr/local/bin/deploy.sh
 
+# Ensure runtime write permissions for Laravel
+RUN mkdir -p /var/www/html/storage/framework/sessions && \
+    mkdir -p /var/www/html/storage/framework/views && \
+    mkdir -p /var/www/html/storage/logs && \
+    chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
 # Final CMD — run script and then start PHP-FPM
 EXPOSE 8080
 
