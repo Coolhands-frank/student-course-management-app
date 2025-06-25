@@ -19,23 +19,22 @@ RUN node -v && npm -v
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl
 
-# Install Composer (from official Composer image)
+# Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copy your Laravel project files
+# Copy application code
 COPY . .
 
-# Install PHP & JS dependencies
+# Set permissions early
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Pre-install dependencies (only run once during image build)
 RUN composer install --no-dev --optimize-autoloader
 RUN npm install && npm run build
 
-# Laravel permissions
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Expose port 9000 and start PHP-FPM
-EXPOSE 9000
-CMD ["php-fpm"]
-
+# Copy deploy script
 COPY scripts/00-laravel-deploy.sh /usr/local/bin/deploy.sh
 RUN chmod +x /usr/local/bin/deploy.sh
-CMD ["sh", "/usr/local/bin/deploy.sh"]
+
+# Final CMD — run script and then start PHP-FPM
+CMD ["/bin/bash", "-c", "/usr/local/bin/deploy.sh && php-fpm"]
