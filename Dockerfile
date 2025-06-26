@@ -11,7 +11,7 @@ WORKDIR /var/www/html
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get update && \
     apt-get install -y nodejs && \
-    npm install -g npm@latest && \ # Ensure npm is up-to-date
+    npm install -g npm@latest && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
