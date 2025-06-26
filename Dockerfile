@@ -9,7 +9,7 @@ WORKDIR /var/www/html
 # Alpine uses 'apk' for package management.
 # 'nodejs' and 'npm' are often in the 'community' repository,
 # so ensure that's enabled if you encounter issues.
-RUN apk add --no-cache nodejs npm && \
+RUN apk add --no-cache nodejs22 npm && \
     npm install -g npm@latest && \
     rm -rf /var/cache/apk/* 
 
