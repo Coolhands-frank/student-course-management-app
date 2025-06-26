@@ -5,13 +5,10 @@ FROM richarvey/nginx-php-fpm:latest
 # Set the working directory inside the container
 WORKDIR /var/www/html
 
-# --- Install Node.js and npm for Alpine Linux ---
-# Alpine uses 'apk' for package management.
-# 'nodejs' and 'npm' are often in the 'community' repository,
-# so ensure that's enabled if you encounter issues.
-RUN apk add --no-cache nodejs22 npm && \
-    npm install -g npm@latest && \
-    rm -rf /var/cache/apk/* 
+# Install Node.js via NodeSource
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
 
 # Verify Node.js and npm installation (optional, but good for debugging build logs)
 RUN node -v && npm -v
