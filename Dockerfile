@@ -5,15 +5,12 @@ FROM richarvey/nginx-php-fpm:latest
 # Set the working directory inside the container
 WORKDIR /var/www/html
 
-# --- Install Node.js and npm ---
-# The richarvey image is based on Debian/Ubuntu.
-# We'll use NodeSource for a robust Node.js installation.
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get update && \
-    apt-get install -y nodejs && \
-    npm install -g npm@latest && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# --- Install Node.js manually ---
+RUN curl -fsSL https://unofficial-builds.nodejs.org/download/release/v18.20.2/node-v18.20.2-linux-x64.tar.xz | tar -xJ && \
+    mv node-v18.20.2-linux-x64 /usr/local/node && \
+    ln -s /usr/local/node/bin/node /usr/local/bin/node && \
+    ln -s /usr/local/node/bin/npm /usr/local/bin/npm && \
+    npm install -g npm@latest
 
 # Verify Node.js and npm installation (optional, but good for debugging build logs)
 RUN node -v && npm -v
