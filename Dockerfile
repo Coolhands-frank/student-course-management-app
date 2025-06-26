@@ -42,10 +42,20 @@ COPY conf/nginx/nginx-site.conf /etc/nginx/sites-enabled/default.conf
 # Ensure the PHP-FPM socket path in your nginx-site.conf matches what richarvey uses.
 # The richarvey image commonly uses `unix:/var/run/php-fpm.sock`, which aligns with your provided config.
 
+# --- Copy and make deploy script executable ---
+# Ensure the local path 'scripts/00-laravel-deploy.sh' is correct
+# and the destination path '/usr/local/bin/deploy.sh' is where your CMD expects it.
+COPY scripts/00-laravel-deploy.sh /usr/local/bin/deploy.sh
+RUN chmod +x /usr/local/bin/deploy.sh
+
 # --- Expose Port ---
 # Nginx typically listens on port 80. Render will forward traffic to this.
 EXPOSE 80
 
+# --- Define the container's startup command ---
+# This CMD will run your deploy script first,
+# and then execute the richarvey image's default entrypoint
+# which handles starting Nginx and PHP-FPM.
 CMD ["/bin/bash", "-c", "/usr/local/bin/deploy.sh && /usr/local/bin/docker-entrypoint.sh"]
 
 # --- Define the container's entrypoint/command ---
