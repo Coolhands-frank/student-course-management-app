@@ -46,6 +46,8 @@ COPY conf/nginx/nginx-site.conf /etc/nginx/sites-enabled/default.conf
 # Nginx typically listens on port 80. Render will forward traffic to this.
 EXPOSE 80
 
+CMD ["/bin/bash", "-c", "/usr/local/bin/deploy.sh && /usr/local/bin/docker-entrypoint.sh"]
+
 # --- Define the container's entrypoint/command ---
 # The richarvey image has a robust entrypoint that automatically starts Nginx and PHP-FPM.
 # You typically don't need a custom CMD unless you have specific pre-startup scripts.
