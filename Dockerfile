@@ -33,11 +33,10 @@ RUN composer install --no-dev --optimize-autoloader
 # This assumes your package.json has a 'build' script (e.g., for Vite, Webpack, Mix)
 RUN npm install && npm run build
 
-run php artisan config:cache
-
-run php artisan route:cache
-
-run php artisan migrate --force
+# --- Laravel Optimization Commands (Chained for efficiency to reduce Docker layers) ---
+RUN php artisan config:cache && \
+    php artisan route:cache && \
+    php artisan view:cache
 
 # --- Copy Custom Nginx Configuration ---
 # IMPORTANT: The richarvey image often places its default configs in /etc/nginx/sites-enabled/.
