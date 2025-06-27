@@ -35,9 +35,7 @@ RUN npm install && npm run build
 
 run php artisan config:cache
 
-run chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
-run artisan route:cache
+run php artisan route:cache
 
 run php artisan migrate --force
 
