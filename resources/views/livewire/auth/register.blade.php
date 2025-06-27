@@ -96,4 +96,5 @@ new #[Layout('components.layouts.auth')] class extends Component {
         {{ __('Already have an account?') }}
         <flux:link :href="route('login')" wire:navigate>{{ __('Log in') }}</flux:link>
     </div>
+    @livewireScripts
 </div>
