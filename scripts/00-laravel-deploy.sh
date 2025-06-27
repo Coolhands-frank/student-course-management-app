@@ -17,7 +17,6 @@ RUN apk add --no-cache nodejs npm && \
 # Verify Node.js and npm installation (optional, but good for debugging build logs)
 RUN node -v && npm -v
 
-
 echo "📁 Fixing permissions..."
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
