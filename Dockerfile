@@ -33,7 +33,13 @@ RUN composer install --no-dev --optimize-autoloader
 # This assumes your package.json has a 'build' script (e.g., for Vite, Webpack, Mix)
 RUN npm install && npm run build
 
-ENV RUN_SCRIPTS 1
+run php artisan config:cache
+
+run chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+run artisan route:cache
+
+run php artisan migrate --force
 
 # --- Copy Custom Nginx Configuration ---
 # IMPORTANT: The richarvey image often places its default configs in /etc/nginx/sites-enabled/.
@@ -48,14 +54,11 @@ COPY conf/nginx/nginx-site.conf /etc/nginx/sites-enabled/default.conf
 # Nginx typically listens on port 80. Render will forward traffic to this.
 EXPOSE 80
 
-# Allow composer to run as root
-ENV COMPOSER_ALLOW_SUPERUSER 1
 
 # --- Define the container's startup command ---
 # This CMD will run your deploy script first,
 # and then execute the richarvey image's default entrypoint
 # which handles starting Nginx and PHP-FPM.
-CMD ["/start.sh"]
 
 # --- Define the container's entrypoint/command ---
 # The richarvey image has a robust entrypoint that automatically starts Nginx and PHP-FPM.
