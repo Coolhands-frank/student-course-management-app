@@ -12,4 +12,6 @@
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @fluxAppearance
+<script src="{{ asset('vendor/livewire/livewire.js') }}"></script>
 @livewireScripts
+
