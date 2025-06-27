@@ -48,6 +48,9 @@ COPY conf/nginx/nginx-site.conf /etc/nginx/sites-enabled/default.conf
 # Nginx typically listens on port 80. Render will forward traffic to this.
 EXPOSE 80
 
+# Allow composer to run as root
+ENV COMPOSER_ALLOW_SUPERUSER 1
+
 # --- Define the container's startup command ---
 # This CMD will run your deploy script first,
 # and then execute the richarvey image's default entrypoint
