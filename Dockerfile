@@ -7,8 +7,8 @@ WORKDIR /var/www/html
 # Install system dependencies + Node.js
 RUN apt-get update && apt-get install -y \
     git curl unzip zip libpng-dev libonig-dev libxml2-dev libzip-dev \
-    gnupg2 ca-certificates
-
+    libpq-dev gnupg2 ca-certificates
+    
 # Install Node.js via NodeSource
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs
